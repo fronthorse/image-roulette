@@ -1,23 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
 function App() {
+  const images = [
+    "brian.jpg",
+    "chris.jpg",
+    "lois.jpg",
+    "meg.jpg",
+    "peter.jpg",
+    "quagmire.jpg",
+    "stewie.jpg",
+  ];
+
+  const [currentImages, setCurrentImages] = useState(images);
+
+  const handleClick = () => {
+    if (currentImages.length > 1) {
+      const randomIndex = Math.floor(Math.random() * currentImages.length);
+      setCurrentImages(
+        currentImages.filter((image, index) => index !== randomIndex)
+      );
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      style={{
+        textAlign: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gridGap: "10px",
+          padding: "20px",
+        }}
+      >
+        {currentImages.map((image) => (
+          <img
+            src={image}
+            alt={image}
+            key={image}
+            style={{
+              width: "200px",
+              height: "200px",
+              boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+            }}
+          />
+        ))}
+      </div>
+      <button
+        style={{ padding: "20px", marginTop: "20px" }}
+        onClick={handleClick}
+      >
+        Roll
+      </button>
     </div>
   );
 }
